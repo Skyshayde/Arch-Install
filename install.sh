@@ -20,7 +20,6 @@ mount_partitions() {
 	mount /dev/sda1 /mnt/boot
 }
 
-}
 check_preinstall() {
 	if ! pushd /sys/firmware/efi/efivars;then
 		exit 1
@@ -58,7 +57,7 @@ configure() {
 	pacstrap /mnt base
 	genfstab -U /mnt >> /mnt/etc/fstab
 	arch-chroot /mnt configure_in_chroot
-
+}
 check_preinstall
 make_partitions
 mount_partitions
