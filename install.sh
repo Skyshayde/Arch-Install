@@ -20,13 +20,17 @@ mount_partitions() {
 	mount /dev/sda1 /mnt/boot
 }
 
-configure() {
-	timedatectl set-ntp true
-	pacstrap /mnt base
-	genfstab -U /mnt >> /mnt/etc/fstab
-	arch-chroot /mnt
+}
+check_preinstall() {
+	if ! pushd /sys/firmware/efi/efivars;then
+		exit 1
+	fi
+	if ! ping -c 1 archlinux.org &> /dev/null;then
+		exit 1
+	fi
+}
 
-
+configure_in_chroot() {
 	ln -sf "/usr/share/zoneinfo/${TIME}" /etc/localtime
 	hwclock --systohc
 
@@ -48,14 +52,12 @@ EOF
 	grub-mkconfig -o /boot/grub/grub.cfg
 	exit
 }
-check_preinstall() {
-	if ! pushd /sys/firmware/efi/efivars;then
-		exit 1
-	fi
-	if ! ping -c 1 archlinux.org &> /dev/null;then
-		exit 1
-	fi
-}
+
+configure() {
+	timedatectl set-ntp true
+	pacstrap /mnt base
+	genfstab -U /mnt >> /mnt/etc/fstab
+	arch-chroot /mnt configure_in_chroot
 
 check_preinstall
 make_partitions
