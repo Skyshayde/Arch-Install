@@ -12,7 +12,7 @@ make_partitions() {
 	mkfs.fat -F32 "${DRIVE}1"
 	mkdir /mnt/boot
 
-	sgdisk -n 1::$ENDSECTOR -g $DRIVE
+	sgdisk -n 2::$ENDSECTOR -g $DRIVE
 	mkfs.ext4 "${DRIVE}2"
 }
 mount_partitions() {
