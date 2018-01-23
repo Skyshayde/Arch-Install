@@ -56,7 +56,7 @@ configure() {
 	timedatectl set-ntp true
 	pacstrap /mnt base
 	genfstab -U /mnt >> /mnt/etc/fstab
-	arch-chroot /mnt configure_in_chroot
+	arch-chroot /mnt /bin/bash -c  "configure_in_chroot"
 }
 check_preinstall
 make_partitions
