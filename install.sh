@@ -33,7 +33,7 @@ install_arch() {
 	timedatectl set-ntp true
 	pacstrap /mnt base
 	genfstab -U /mnt >> /mnt/etc/fstab
-	wget https://raw.githubusercontent.com/Skyshayde/Arch-Install/master/configure.sh configure.sh
+	wget https://raw.githubusercontent.com/Skyshayde/Arch-Install/master/configure.sh -O configure.sh
 	arch-chroot /mnt ./configure.sh
 }
 check_preinstall
