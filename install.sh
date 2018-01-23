@@ -10,13 +10,13 @@ HOSTNAME='teddyheinen'
 make_partitions() {
 	sgdisk -n 1::+550M -t 1:EF00 -g $DRIVE
 	mkfs.fat -F32 "${DRIVE}1"
-	mkdir /mnt/boot
 
 	sgdisk -n 2::$ENDSECTOR -g $DRIVE
 	mkfs.ext4 "${DRIVE}2"
 }
 mount_partitions() {
 	mount /dev/sda2 /mnt
+	mkdir /mnt/boot
 	mount /dev/sda1 /mnt/boot
 }
 
