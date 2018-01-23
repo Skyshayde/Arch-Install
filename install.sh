@@ -49,7 +49,7 @@ EOF
 	exit
 }
 check_preinstall() {
-	if ! pushd /sys/firmware/efivars;then
+	if ! pushd /sys/firmware/efi/efivars;then
 		exit 1
 	fi
 	if ! ping -c 1 archlinux.org &> /dev/null;then
