@@ -20,7 +20,7 @@ mount_partitions() {
 	mount /dev/sda1 /mnt/boot
 }
 
-check_preinstall() {
+preinstall_check() {
 	if ! pushd /sys/firmware/efi/efivars;then
 		exit 1
 	fi
@@ -36,7 +36,7 @@ install_arch() {
 	wget https://raw.githubusercontent.com/Skyshayde/Arch-Install/master/configure.sh -O configure.sh
 	arch-chroot /mnt ./configure.sh
 }
-check_preinstall
+preinstall_check
 make_partitions
 mount_partitions
 install_arch
