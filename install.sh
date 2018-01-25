@@ -2,10 +2,6 @@
 # Drive to install to.
 DRIVE='/dev/sda'
 
-TIME="America/Chicago"
-
-# Hostname of the installed machine.
-HOSTNAME='teddyheinen'
 
 make_partitions() {
 	sgdisk -n 1::+550M -t 1:EF00 -g $DRIVE
@@ -13,12 +9,11 @@ make_partitions() {
 
 	sgdisk -n 2::$ENDSECTOR -g $DRIVE
 	mkfs.ext4 "${DRIVE}2"
-}
-mount_partitions() {
 	mount /dev/sda2 /mnt
 	mkdir /mnt/boot
 	mount /dev/sda1 /mnt/boot
 }
+
 
 preinstall_check() {
 	if ! pushd /sys/firmware/efi/efivars;then
@@ -33,10 +28,10 @@ install_arch() {
 	timedatectl set-ntp true
 	pacstrap /mnt base
 	genfstab -U /mnt >> /mnt/etc/fstab
-	wget https://raw.githubusercontent.com/Skyshayde/Arch-Install/master/configure.sh -O configure.sh
-	arch-chroot /mnt ./configure.sh
+	wget http://arch.teddyheinen.com/configure.sh -O configure.sh
+	# arch-chroot /mnt ./configure.sh
 }
 preinstall_check
 make_partitions
-mount_partitions
+
 install_arch

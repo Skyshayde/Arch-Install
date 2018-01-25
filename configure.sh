@@ -17,7 +17,7 @@ cat > /etc/hosts <<EOF
 ::1       localhost.localdomain localhost ${HOSTNAME}
 EOF
 
-pacman --noconfirm -S grub efibootmgr
+pacman --noconfirm -S grub efibootmgr os-prober
 
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=grub
 
