@@ -1,0 +1,10 @@
+xorg
+xorg-xinit
+i3-gaps
+fish
+rofi
+dunst
+compton
+arc-gtk-theme
+base-devel
+wget
